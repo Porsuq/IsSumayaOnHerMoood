@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Are You on Your Mood? Quiz</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: #ffe6f0;
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        color: #ff66b3;
+        text-align: center;
+    }
+    .quiz-container {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+    .question {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+    .options button {
+        background: #ffb3d9;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .options button:hover {
+        background: #ff66b3;
+        color: white;
+    }
+    .result {
+        font-size: 1.3em;
+        font-weight: bold;
+        margin-top: 20px;
+        color: #ff3399;
+    }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Are You on Your Mood? 💅</h1>
+    <div id="quiz">
+        <div class="question" id="question"></div>
+        <div class="options" id="options"></div>
+    </div>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+const quizData = [
+    {
+        question: "Are you on your mood?",
+        options: [
+            { text: "Yes 😡", next: 1 },
+            { text: "No 😇", next: 2 }
+        ]
+    },
+    {
+        question: "Are you on your period?",
+        options: [
+            { text: "Yes 😬", result: " Results: Bring chocolate and bubble tea." },
+            { text: "No 🙄", next: 2 }
+        ]
+    },
+    {
+        question: "Did someone annoy you today?",
+        options: [
+            { text: "Yes 😤", result: " Results: Compliment her or stay silent." },
+            { text: "No 😌", next: 3 }
+        ]
+    },
+    {
+        question: "Just dramatic for fun?",
+        options: [
+            { text: "Yes 😏", result: " Results: Don’t ask questions — just survive." },
+            { text: "No 🙃", result: " Results: Everything’s calm, but don’t get cocky." }
+        ]
+    }
+];
+
+let currentIndex = 0;
+
+const questionEl = document.getElementById('question');
+const optionsEl = document.getElementById('options');
+const resultEl = document.getElementById('result');
+
+function showQuestion(index) {
+    const data = quizData[index];
+    questionEl.innerText = data.question;
+    optionsEl.innerHTML = '';
+    resultEl.innerHTML = '';
+
+    data.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.innerText = option.text;
+        btn.onclick = () => {
+            if (option.result) {
+                showResult(option.result);
+            } else if (option.next !== undefined) {
+                showQuestion(option.next);
+            }
+        };
+        optionsEl.appendChild(btn);
+    });
+}
+
+function showResult(text) {
+    quiz.style.display = 'none';
+    resultEl.innerHTML = `${text} <br><br> <strong>Sumaya is never the problem.</strong> 💅`;
+}
+
+showQuestion(currentIndex);
+</script>
+
+</body>
+</html>
